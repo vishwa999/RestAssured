@@ -1,0 +1,61 @@
+package com.newtours.tests;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.newtours.pages.FindFlightPage;
+import com.newtours.pages.FlightConfirmation;
+import com.newtours.pages.FlightDetailsPage;
+import com.newtours.pages.RegistrationConfirmation;
+import com.newtours.pages.RegistrationPage;
+
+public class BookingFlightTest {
+   private WebDriver driver;
+   
+   @BeforeTest
+   public void setUpDriver() {
+	   System.setProperty("webdriver.chrome.driver","./chromedriver_win32/chromedriver.exe");
+	   this.driver=new ChromeDriver();
+   }
+   
+   @Test
+   public void registrationPageTest() throws InterruptedException {
+	   RegistrationPage registertionPage=new RegistrationPage(driver);
+	   registertionPage.goTo();
+	   registertionPage.enterUserDetails("selenium", "docker");
+	   registertionPage.enterUserCredentials("selenium", "docker", "docker");
+       registertionPage.submit();
+   }
+   
+   @Test(dependsOnMethods = "registrationPageTest")
+   public void registrationConfirmationPage()
+   {
+	   RegistrationConfirmation registrationConfirmation=new RegistrationConfirmation(driver);
+	   registrationConfirmation.ClickonFlightLink();
+   }
+   
+   @Test(dependsOnMethods = "registrationConfirmationPage")
+   public void enterFlightDetails() {
+	   FlightDetailsPage flightDetails=new FlightDetailsPage(driver);
+	   flightDetails.selectPassengers("2");
+	   flightDetails.gotoFindFlightsPage();
+   }
+   
+   @Test(dependsOnMethods = "enterFlightDetails")
+   public void findFlightPage()
+   {
+	   FindFlightPage findflightpage=new FindFlightPage(driver);
+	   findflightpage.SubmitFindFlightPage();
+	   findflightpage.goToFlightConfigmationPage();
+   }
+   
+   @Test(dependsOnMethods = "findFlightPage")
+   public void flightConfirmation()
+   {
+	   FlightConfirmation flightconfirmation=new FlightConfirmation(driver);
+	   flightconfirmation.printConfirmation();
+	   driver.close();
+   }
+}

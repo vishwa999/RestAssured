@@ -1,0 +1,43 @@
+package com.searchModule.searchTest;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import com.beust.jcommander.Parameter;
+import com.searchModules.pages.searchPage;
+
+public class searchTest {
+	
+	private WebDriver driver;
+	private String keyword;
+	
+	@BeforeTest	
+	@Parameters({"keyword"})
+	public void setUpDriver(String keyword) {
+		this.keyword=keyword;
+		System.setProperty("webdriver.chrome.driver","./chromedriver_win32/chromedriver.exe");
+		   this.driver=new ChromeDriver();
+	}
+	
+	
+	@Test
+	
+	public void search(String keyword) throws InterruptedException {
+		searchPage searchpage=new searchPage(driver);
+		searchpage.goTo();
+		searchpage.doSearch(keyword);
+		searchpage.gotoVideos();
+		int size=searchpage.getResult();	
+	}
+	
+	@AfterTest
+	public void quitDriver() {
+		this.driver.quit();
+	}
+
+}

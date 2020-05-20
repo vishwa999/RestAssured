@@ -1,0 +1,38 @@
+package com.searchModule.searchTest;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.searchModules.pages.searchPage;
+
+public class searchTest {
+	
+	private WebDriver driver;
+	
+	@BeforeTest
+	public void setUpDriver() {
+		System.setProperty("webdriver.chrome.driver","./chromedriver_win32/chromedriver.exe");
+		   this.driver=new ChromeDriver();
+	}
+	
+	
+	@Test
+	public void search() {
+		searchPage searchpage=new searchPage(driver);
+		searchpage.goTo();
+		searchpage.doSearch("java");
+		searchpage.gotoVideos();
+		searchpage.printResult();
+	}
+	
+	
+	
+	@AfterTest
+	public void quitDriver() {
+		this.driver.quit();
+	}
+
+}

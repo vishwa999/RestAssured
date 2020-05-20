@@ -1,0 +1,13 @@
+<suite name="book-flight-module">
+
+  <test name="book-flight">
+  <parameter name="noofPassangers" value="2"></parameter>
+  <parameter name="expectedPrice" value="$89 USD"></parameter>
+    <classes>
+      <class name="com.newtour.tests.BookFlightTest" />
+    </classes>
+  </test>
+
+
+
+</suite>

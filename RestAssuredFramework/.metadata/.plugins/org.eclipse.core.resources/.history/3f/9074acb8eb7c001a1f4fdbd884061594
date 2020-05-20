@@ -1,0 +1,36 @@
+package com.searchModules.pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class searchPage {
+	
+	private WebDriver driver;
+    private WebDriverWait wait;
+    
+    @FindBy(name="q")
+    WebElement SearchTextBox;
+    
+    @FindBy(xpath="//input[@id='search_button_homepage']")
+    WebElement searchBtn;
+    
+    public searchPage(WebDriver driver)
+    {
+    	this.driver=driver;
+    	this.wait=new WebDriverWait(driver, 30);
+    	PageFactory.initElements(driver, this);
+    }
+    
+    public void goTo() {
+    	this.driver.get("https://duckduckgo.com/");
+    }
+    
+    public void doSearch(String value) {
+    	this.SearchTextBox.sendKeys("WebDriver");
+    	this.searchBtn.click();
+    }
+
+}

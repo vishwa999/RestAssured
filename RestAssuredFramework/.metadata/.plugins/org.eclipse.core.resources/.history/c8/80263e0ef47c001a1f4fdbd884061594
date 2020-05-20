@@ -1,0 +1,16 @@
+<suite name="book-flight-module">
+
+  <test name="search-module">
+       <parameter name="keyword" value="java"></parameter>
+       <classes>
+            <class name="com.searchModule.searchTest.searchTest" />
+       </classes>
+  </test>
+  
+  <test name="search-module">
+       <parameter name="keyword" value="C++"></parameter>
+       <classes>
+            <class name="com.searchModule.searchTest.searchTest" />
+       </classes>
+  </test>
+</suite>
